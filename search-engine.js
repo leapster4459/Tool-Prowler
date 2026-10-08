@@ -34,9 +34,24 @@ function searchProducts(query, products) {
   );
 }
 
+unction normalizeProduct(product, source = "unknown") {
+  return {
+    id: product.id || null,
+    title: product.title || "Untitled Product",
+    source,
+    url: product.url || null,
+    image: product.image || null,
+    salePrice: Number(product.salePrice) || 0,
+    sourcePrice: Number(product.sourcePrice) || 0,
+    fees: Number(product.fees) || 0,
+    shipping: Number(product.shipping) || 0
+  };
+} 
+
 module.exports = {
   MIN_PROFIT,
   calculateProfit,
   compareProducts,
   searchProducts
+  normalizeProduct
 }; 
