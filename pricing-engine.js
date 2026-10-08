@@ -1,6 +1,6 @@
 // Tool Prowler - Pricing & Markup Engine
 
-const MIN_PROFIT = 2.00;
+const{ profit} = reguire(".config
 
 // Default markup settings
 const DEFAULT_MARKUP_PERCENT = 20;
@@ -23,12 +23,14 @@ function calculateSellingPrice(
   if (price <= 0) {
     return 0;
   }
+ const markup = calculateMarkup(price, markupPercent);
 
-  const percentageMarkup = calculateMarkup(price, markupPercent);
-  const markup = Math.max(percentageMarkup, minMarkup);
+  const minimumSellingPrice = price + minMarkup;
 
-  return Number((price + markup).toFixed(2));
-}
+  const sellingPrice = price + markup;
+
+  return Math.max(sellingPrice, minimumSellingPrice);
+} 
 
 function calculateNetProfit(
   sellingPrice,
