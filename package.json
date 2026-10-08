@@ -1,0 +1,10 @@
+{
+  "name": "tool-prowler",
+  "version": "1.0.0",
+  "description": "Tool Prowler automated product search and comparison engine",
+  "main": "search-engine.js",
+  "scripts": {
+    "start": "node search-engine.js"
+  },
+  "private": true
+} 
