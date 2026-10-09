@@ -4,29 +4,15 @@ const { priceProduct } = require("./pricing-engine");
 
 const MIN_PROFIT = 2.00;
 
-function calculateProfit(salePrice, sourcePrice, fees = 0, shipping = 0) {
-  return salePrice - sourcePrice - fees - shipping;
-}
+  function compareProducts(products) {
+  const pricedProducts = products.map((product) =>
+    priceProduct(product)
+  );
 
-function compareProducts(products) {
-  return products
-    .map(product => {
-      const profit = calculateProfit(
-        product.salePrice,
-        product.sourcePrice,
-        product.fees || 0,
-        product.shipping || 0
-      );
-
-      return {
-        ...product,
-        expectedProfit: Number(profit.toFixed(2)),
-        profitable: profit >= MIN_PROFIT
-      };
-    })
-    .filter(product => product.profitable)
-    .sort((a, b) => b.expectedProfit - a.expectedProfit);
-}
+  return pricedProducts
+    .filter((product) => product.profitable)
+    .sort((a, b) => b.netProfit - a.netProfit);
+  }
 
 function searchProducts(query, products) {
   const search = query.toLowerCase().trim();
@@ -61,7 +47,6 @@ function processProduct(product, options = {}) {
 
 module.exports = {
   MIN_PROFIT,
-  calculateProfit,
   compareProducts,
   searchProducts,
   normalizeProduct,
